@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css?family=Bubbler+One|Coda|Josefin+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="flex-container">
+    <div class="top-box">
+
+    </div>
+    <div class="mid-box">
+        <div class="main-block">
+            <div class="single-row">
+                <div id="piece1" class="single-piece"></div>
+                <div id="piece2" class="single-piece"></div>
+                <div id="piece3" class="single-piece"></div>
+            </div>
+            <div class="single-row">
+                <div id="piece4" class="single-piece"></div>
+                <div id="piece5" class="single-piece"></div>
+                <div id="piece6" class="single-piece"></div>
+            </div>
+            <div class="single-row">
+                <div id="piece7" class="single-piece"></div>
+                <div id="piece8" class="single-piece"></div>
+                <div id="piece9" class="single-piece"></div>
+            </div>
+        </div>
+    </div>
+    <div class="bot-box">
+    </div>
+</div>
+
+<script>
+    const pieces = document.querySelectorAll('.single-piece');
+    pieces.forEach(e => e.addEventListener('click', draw));
+
+    function draw() {
+        this.innerHTML = "X";
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

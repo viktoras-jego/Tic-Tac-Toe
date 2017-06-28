@@ -1,0 +1,76 @@
+:root{
+    --background-color: rgba(255, 179, 104, 0.16);
+    --window-color: #d4eaff;
+    --mid-color: 0;
+    --line-width: 3px;
+    --line-color: #868686;
+}
+body {
+    background-color: var(--background-color);
+}
+
+.flex-container{
+    display: flex;
+    flex-direction: column;
+}
+.top-box{
+    display: flex;
+    height: 170px;
+
+}
+.mid-box{
+    display: flex;
+    justify-content: center;
+    height: 420px;
+    background-color: var(--mid-color);
+}
+.bot-box{
+    display: flex;
+
+}
+.main-block{
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    background-color:var(--window-color);
+}
+.single-row{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+.single-piece {
+    flex: 1;
+    cursor: pointer;
+}
+#piece1{
+    border-right: var(--line-width) var(--line-color) solid;
+    border-bottom: var(--line-width) var(--line-color) solid;
+}
+#piece2{
+    border-right: var(--line-width) var(--line-color) solid;
+    border-bottom: var(--line-width) var(--line-color) solid;
+}
+#piece3{
+    border-bottom: var(--line-width) var(--line-color) solid;
+}
+#piece4{
+    border-right: var(--line-width) var(--line-color) solid;
+    border-bottom: var(--line-width) var(--line-color) solid;
+}
+#piece5{
+    border-right: var(--line-width) var(--line-color) solid;
+    border-bottom: var(--line-width) var(--line-color) solid;
+}
+#piece6{
+    border-bottom: var(--line-width) var(--line-color) solid;
+}
+#piece7{
+    border-right: var(--line-width) var(--line-color) solid;
+}
+#piece8{
+    border-right: var(--line-width) var(--line-color) solid;
+}
+#piece9{
+
+}
