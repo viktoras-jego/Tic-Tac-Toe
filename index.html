@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link href="https://fonts.googleapis.com/css?family=Bubbler+One|Coda|Josefin+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Fredoka+One|Concert+One" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="flex-container">
-    <div class="top-box">
-
-    </div>
-    <div class="mid-box">
+<div class="title">
+    <span>
+        Title
+    </span>
+    <span class="turn">
+        X starts
+    </span>
+</div>
+<div class="scaleable-wrapper">
+    <div class="very-specific-design">
         <div class="main-block">
             <div class="single-row">
                 <div id="piece1" class="single-piece"></div>
@@ -31,20 +36,45 @@
             </div>
         </div>
     </div>
-    <div class="bot-box">
-    </div>
 </div>
+<div>
+</div>
+
 
 <script>
     const pieces = document.querySelectorAll('.single-piece');
+    let turn = "X";
+    let array = ["","","","","","","","",""];
+    let used = [];
     pieces.forEach(e => e.addEventListener('click', draw));
 
     function draw() {
-        this.innerHTML = "X";
+        let check = this.getAttribute('id');
+        if (turn === "X" && !used.includes(check)) {
+            this.innerHTML = "X";
+            entered(this);
+            turn = "O";
+        }
+        else if (!used.includes(check)) {
+            this.innerHTML = "O";
+            entered(this);
+            turn = "X";
+        }
+        used.push(check);
+        console.log(used);
+        this.style.color = "#4C4C4C";
     }
 
-
-
+    function entered(e) {
+        let id = e.getAttribute('id');
+        id = Number(id.replace("piece",""));
+        if(turn === "X"){
+            array[id-1] = "X";
+        }
+        else{
+            array[id-1] = "O";
+        }
+    }
 
 
 </script>

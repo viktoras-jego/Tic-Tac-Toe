@@ -1,6 +1,6 @@
 :root{
-    --background-color: rgba(255, 179, 104, 0.16);
-    --window-color: #d4eaff;
+    --background-color: rgba(22, 26, 95, 0.7);
+    --window-color: #ffffff;
     --mid-color: 0;
     --line-width: 3px;
     --line-color: #868686;
@@ -11,17 +11,20 @@ body {
 
 .flex-container{
     display: flex;
+    position: absolute;
+    height: 100%;
+    width: 100%;
     flex-direction: column;
 }
 .top-box{
     display: flex;
-    height: 170px;
+    height: 15%;
 
 }
 .mid-box{
     display: flex;
     justify-content: center;
-    height: 420px;
+    height: 50%;
     background-color: var(--mid-color);
 }
 .bot-box{
@@ -29,9 +32,10 @@ body {
 
 }
 .main-block{
+    height: 100%;
     display: flex;
     flex-direction: column;
-    width: 450px;
+    width: 350px;
     background-color:var(--window-color);
 }
 .single-row{
@@ -40,8 +44,21 @@ body {
     flex: 1;
 }
 .single-piece {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex: 1;
     cursor: pointer;
+    font-size: 60px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Fredoka One', cursive;
+    transition: color 0.6s ease;
+    color: white;
 }
 #piece1{
     border-right: var(--line-width) var(--line-color) solid;
@@ -73,4 +90,38 @@ body {
 }
 #piece9{
 
+}
+.very-specific-design {
+    display: flex;
+    justify-content: center;
+    width: 420px;
+    height: 100%;
+    padding: 50px;
+    text-align: center;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+}
+
+.scaleable-wrapper {
+    height: 400px;
+}
+
+.title{
+    margin-top: 25px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Coda', cursive;
+    font-size: 30px;
+}
+.turn{
+    margin-top: 10px;
+    font-size: 22px;
+    font-family: 'Concert One', cursive;
+    color: whitesmoke;
 }
