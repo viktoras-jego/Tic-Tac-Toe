@@ -111,7 +111,7 @@ body {
 
 .title{
     margin-top: 25px;
-    height: 80px;
+    height: 95px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -120,8 +120,9 @@ body {
     font-size: 30px;
 }
 .turn{
-    margin-top: 10px;
-    font-size: 22px;
-    font-family: 'Concert One', cursive;
+    margin-top: 25px;
+    font-size: 27px;
+    font-family: 'Architects Daughter', cursive;
     color: whitesmoke;
+    font-weight: bold;
 }

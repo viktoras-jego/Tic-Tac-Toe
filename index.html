@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link href="https://fonts.googleapis.com/css?family=Coda|Fredoka+One|Concert+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Fredoka+One|Concert+One|Architects+Daughter" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="title">
     <span>
-        Title
+        Tic-Tac-Toe
     </span>
-    <span class="turn">
+    <span id="status" class="turn">
         X starts
     </span>
 </div>
@@ -43,28 +43,32 @@
 
 <script>
     const pieces = document.querySelectorAll('.single-piece');
+    const status = document.querySelector('#status');
     let turn = "X";
     let array = ["","","","","","","","",""];
-    let used = [];
+    let used = []; //to prevent entrting in the same field
+    let good = [[1,2,3],[4,5,6],[2,5,8],[3,6,9],[7,8,9],[1,4,7],[1,5,9],[3,5,7]];
+    let gameover = false;
     pieces.forEach(e => e.addEventListener('click', draw));
 
     function draw() {
-        let check = this.getAttribute('id');
-        if (turn === "X" && !used.includes(check)) {
-            this.innerHTML = "X";
-            entered(this);
-            turn = "O";
+        if (!gameover) {
+            let check = this.getAttribute('id');
+            if (turn === "X" && !used.includes(check)) {
+                this.innerHTML = "X";
+                entered(this);
+                turn = "O";
+            }
+            else if (!used.includes(check)) {
+                this.innerHTML = "O";
+                entered(this);
+                turn = "X";
+            }
+            used.push(check);
+            this.style.color = "#4C4C4C";
+            checkResult();
         }
-        else if (!used.includes(check)) {
-            this.innerHTML = "O";
-            entered(this);
-            turn = "X";
-        }
-        used.push(check);
-        console.log(used);
-        this.style.color = "#4C4C4C";
     }
-
     function entered(e) {
         let id = e.getAttribute('id');
         id = Number(id.replace("piece",""));
@@ -74,6 +78,25 @@
         else{
             array[id-1] = "O";
         }
+    }
+    function checkResult() {
+        good.map((e) =>{
+            let answer1 = e.every((z) =>{
+                return array[z-1] === "X";
+            });
+            let answer2 = e.every((z) =>{
+                return array[z-1] === "O";
+            });
+            if (answer1){
+                gameover = true;
+                status.innerHTML = "X Won!"
+            }
+            if (answer2){
+                gameover = true;
+                status.innerHTML = "O Won!"
+            }
+        });
+
     }
 
 
