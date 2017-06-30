@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link href="https://fonts.googleapis.com/css?family=Coda|Fredoka+One|Concert+One|Architects+Daughter" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Fredoka+One|Concert+One|Roboto+Condensed" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,9 +12,11 @@
     <span>
         Tic-Tac-Toe
     </span>
-    <span id="status" class="turn">
-        X starts
-    </span>
+    <div id="status" class="status">
+        <div class="my-turn">
+            Your turn
+        </div>
+    </div>
 </div>
 <div class="scaleable-wrapper">
     <div class="very-specific-design">
@@ -37,18 +39,31 @@
         </div>
     </div>
 </div>
-<div>
+<div class="bot-box">
+    <button class="ghost-button">Restart</button>
 </div>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-    const pieces = document.querySelectorAll('.single-piece');
+    let a1;
+    let a2;
+    let a3;
+    let b1;
+    let b2;
+    let b3;
+    let c1;
+    let c2;
+    let c3;
+    pieces = document.querySelectorAll('.single-piece');
+    let list = Array.from(pieces);
+    list.unshift("blank");
     const status = document.querySelector('#status');
     let turn = "X";
     let array = ["","","","","","","","",""];
     let used = []; //to prevent entrting in the same field
     let good = [[1,2,3],[4,5,6],[2,5,8],[3,6,9],[7,8,9],[1,4,7],[1,5,9],[3,5,7]];
     let gameover = false;
+    let delay = 400;
     pieces.forEach(e => e.addEventListener('click', draw));
 
     function draw() {
@@ -57,16 +72,12 @@
             if (turn === "X" && !used.includes(check)) {
                 this.innerHTML = "X";
                 entered(this);
-                turn = "O";
+                used.push(check);
+                this.style.color = "#4C4C4C";
+                boardCheck();
+                compMove ();
+                checkResult();
             }
-            else if (!used.includes(check)) {
-                this.innerHTML = "O";
-                entered(this);
-                turn = "X";
-            }
-            used.push(check);
-            this.style.color = "#4C4C4C";
-            checkResult();
         }
     }
     function entered(e) {
@@ -74,9 +85,6 @@
         id = Number(id.replace("piece",""));
         if(turn === "X"){
             array[id-1] = "X";
-        }
-        else{
-            array[id-1] = "O";
         }
     }
     function checkResult() {
@@ -98,6 +106,183 @@
         });
 
     }
+
+
+    function compMove() {
+        console.log(array);
+        console.log(list[1]);
+        if (a1 === "" && ((a3 === "X" && a2 === "X") || (c3 === "X" && b2 === "X") || (c1 === "X" && b1 === "X"))) {
+            list[1].innerHTML = "O";
+            let check2 = list[1].getAttribute('id');
+            used.push(check2);
+            array[0] = "O";
+            setTimeout(() => {
+                list[1].style.color = "#4C4C4C"
+            },delay);
+        } else {
+            if (a2 === "" && ((a1 === "X" && a3 === "X") || (c2 === "X" && b2 === "X"))) {
+                list[2].innerHTML = "O";
+                let check2 = list[2].getAttribute('id');
+                used.push(check2);
+                array[1] = "O";
+                setTimeout(() => {
+                    list[2].style.color = "#4C4C4C"
+                },delay);
+            }
+            else{
+                if (a3 === "" && ((a1 === "X" && a2 === "X") || (c1 === "X" && b2 === "X") || (c3 === "X" && b3 === "X"))) {
+                    list[3].innerHTML = "O";
+                    let check2 = list[3].getAttribute('id');
+                    used.push(check2);
+                    array[2] = "O";
+                    setTimeout(() => {
+                        list[3].style.color = "#4C4C4C"
+                    },delay);
+                }
+                else{
+                    if (c3 === "" && ((c1 === "X" && c2 === "X") || (a1 === "X" && b2 === "X") || (a3 === "X" && b3 === "X"))) {
+                        list[9].innerHTML = "O";
+                        let check2 = list[9].getAttribute('id');
+                        used.push(check2);
+                        array[8] = "O";
+                        setTimeout(() => {
+                            list[9].style.color = "#4C4C4C"
+                        },delay);
+                    }
+                    else{
+                        if (c1 === "" && ((c3 === "X" && c2 === "X") || (a3 === "X" && b2 === "X") || (a1 === "X" && b1 === "X"))) {
+                            list[7].innerHTML = "O";
+                            let check2 = list[7].getAttribute('id');
+                            used.push(check2);
+                            array[6] = "O";
+                            setTimeout(() => {
+                                list[7].style.color = "#4C4C4C"
+                            },delay);
+                        }
+                        else{
+                            if (c2 === "" && ((c3 === "X" && c1 === "X") || (a2 === "X" && b2 === "X"))) {
+                                list[8].innerHTML = "O";
+                                let check2 = list[8].getAttribute('id');
+                                used.push(check2);
+                                array[7] = "O";
+                                setTimeout(() => {
+                                    list[8].style.color = "#4C4C4C"
+                                },delay);
+                            }
+                            else{
+                                if (b1 === "" && ((b3 === "X" && b2 === "X") || (a1 === "X" && c1 === "X"))) {
+                                    list[4].innerHTML = "O";
+                                    let check2 = list[4].getAttribute('id');
+                                    used.push(check2);
+                                    array[3] = "O";
+                                    setTimeout(() => {
+                                        list[4].style.color = "#4C4C4C"
+                                    },delay);
+                                }
+                                else{
+                                    if (b3 === "" && ((a3 === "X" && c3 === "X") || (b2 === "X" && b1 === "X"))) {
+                                        list[6].innerHTML = "O";
+                                        let check2 = list[6].getAttribute('id');
+                                        used.push(check2);
+                                        array[5] = "O";
+                                        setTimeout(() => {
+                                            list[6].style.color = "#4C4C4C"
+                                        },delay);
+                                    }
+                                    else{
+                                        if (b2 === "" && ((a3 === "X" && c1 === "X") || (c3 === "X" && a1 === "X") || (b3 === "X" && b1 === "X") || (c2 === "X" && a2 === "X"))) {
+                                            list[5].innerHTML = "O";
+                                            let check2 = list[5].getAttribute('id');
+                                            used.push(check2);
+                                            array[4] = "O";
+                                            setTimeout(() => {
+                                                list[5].style.color = "#4C4C4C"
+                                            },delay);
+                                        }
+                                        else{ // IF NO OPP TO BLOCK A WIN, THEN PLAY IN ONE OF THESE SQUARES
+                                            if (b2 === "") {
+                                                list[5].innerHTML = "O";
+                                                let check2 = list[5].getAttribute('id');
+                                                used.push(check2);
+                                                array[4] = "O";
+                                                setTimeout(() => {
+                                                    list[5].style.color = "#4C4C4C"
+                                                },delay);
+
+                                            }
+                                            else{
+                                                if (a1 === "") {
+                                                    list[1].innerHTML = "O";
+                                                    let check2 = list[1].getAttribute('id');
+                                                    used.push(check2);
+                                                    array[0] = "O";
+                                                    setTimeout(() => {
+                                                        list[1].style.color = "#4C4C4C"
+                                                    },delay);
+
+                                                }
+                                                else{
+                                                    if (c3 === "") {
+                                                        list[9].innerHTML = "O";
+                                                        let check2 = list[9].getAttribute('id');
+                                                        used.push(check2);
+                                                        array[8] = "O";
+                                                        setTimeout(() => {
+                                                            list[9].style.color = "#4C4C4C"
+                                                        },delay);
+
+                                                    }
+                                                    else {
+                                                        if (c2 === "") {
+                                                            list[8].innerHTML = "O";
+                                                            let check2 = list[8].getAttribute('id');
+                                                            used.push(check2);
+                                                            array[7] = "O";
+                                                            setTimeout(() => {
+                                                                list[8].style.color = "#4C4C4C"
+                                                            },delay);
+
+                                                        }
+                                                        else{
+                                                            if (b1 === "") {
+                                                                list[4].innerHTML = "O";
+                                                                let check2 = list[4].getAttribute('id');
+                                                                used.push(check2);
+                                                                array[3] = "O";
+                                                                setTimeout(() => {
+                                                                    list[4].style.color = "#4C4C4C"
+                                                                },delay);
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    function boardCheck() {
+        a1 = $('#piece1').html();
+        a2 = $('#piece2').html();
+        a3 = $('#piece3').html();
+        b1 = $('#piece4').html();
+        b2 = $('#piece5').html();
+        b3 = $('#piece6').html();
+        c1 = $('#piece7').html();
+        c2 = $('#piece8').html();
+        c3 = $('#piece9').html();
+    }
+
 
 
 </script>
