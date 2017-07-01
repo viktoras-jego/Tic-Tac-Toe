@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link href="https://fonts.googleapis.com/css?family=Coda|Fredoka+One|Concert+One|Roboto+Condensed" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Fredoka+One|Concert+One|Inconsolata" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="title">
-    <span>
+    <span class="title2">
         Tic-Tac-Toe
     </span>
     <div id="status" class="status">
-        <div class="my-turn">
+        <div id="my-turn" class="my-turn">
             Your turn
         </div>
     </div>
@@ -40,7 +40,12 @@
     </div>
 </div>
 <div class="bot-box">
-    <button class="ghost-button">Restart</button>
+    <div>
+        <button id="reset" class="ghost-button">Restart</button>
+    </div>
+    <div style="margin-top: 30px">
+        <span class="trademark">© This project is made by <a href="https://github.com/vza100" target="_blank"><span class="name">Viktoras Jegorovas</span></a></span>
+    </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -54,11 +59,14 @@
     let c1;
     let c2;
     let c3;
+    let reset = document.querySelector('#reset');
+    let myTurn = document.querySelector('#my-turn');
     pieces = document.querySelectorAll('.single-piece');
     let list = Array.from(pieces);
     list.unshift("blank");
     const status = document.querySelector('#status');
     let turn = "X";
+    let turn2 = "X";
     let array = ["","","","","","","","",""];
     let used = []; //to prevent entrting in the same field
     let good = [[1,2,3],[4,5,6],[2,5,8],[3,6,9],[7,8,9],[1,4,7],[1,5,9],[3,5,7]];
@@ -66,16 +74,41 @@
     let delay = 400;
     pieces.forEach(e => e.addEventListener('click', draw));
 
+    function computerStarts() {
+        myTurn.style.opacity = 0;
+        setTimeout(() => {
+            myTurn.innerHTML = "Computer starts";
+            myTurn.style.opacity = 1;
+        },1000);
+        turn2 = "O";
+        boardCheck();
+        checkResult();
+        compMove ();
+        checkResult();
+    }
+
+    function humanStarts() {
+        myTurn.style.opacity = 0;
+        setTimeout(() => {
+            myTurn.innerHTML = "Your turn";
+            myTurn.style.opacity = 1;
+        },1000);
+        turn2 = "X";
+    }
+
     function draw() {
         if (!gameover) {
+            myTurn.style.opacity = 0;
             let check = this.getAttribute('id');
             if (turn === "X" && !used.includes(check)) {
                 this.innerHTML = "X";
                 entered(this);
                 used.push(check);
                 this.style.color = "#4C4C4C";
+                turn = "O";
                 boardCheck();
-                compMove ();
+                checkResult();
+                !gameover ? compMove () : null;
                 checkResult();
             }
         }
@@ -96,21 +129,31 @@
                 return array[z-1] === "O";
             });
             if (answer1){
+                myTurn.style.opacity = 1;
                 gameover = true;
-                status.innerHTML = "X Won!"
+                myTurn.innerHTML = "X Won!";
+            }
+            else if(used.length === 9){
+                myTurn.innerHTML = "It's a draw!";
+                myTurn.style.opacity = 1;
+                gameover = true;
             }
             if (answer2){
+                myTurn.style.opacity = 1;
                 gameover = true;
-                status.innerHTML = "O Won!"
+                myTurn.innerHTML = "O Won!";
+            }
+            else if(used.length === 9){
+                myTurn.innerHTML = "It's a draw!";
+                myTurn.style.opacity = 1;
+                gameover = true;
             }
         });
-
+    setTimeout(() => {
+        turn = "X";
+    },delay)
     }
-
-
     function compMove() {
-        console.log(array);
-        console.log(list[1]);
         if (a1 === "" && ((a3 === "X" && a2 === "X") || (c3 === "X" && b2 === "X") || (c1 === "X" && b1 === "X"))) {
             list[1].innerHTML = "O";
             let check2 = list[1].getAttribute('id');
@@ -254,6 +297,54 @@
                                                                 },delay);
 
                                                             }
+                                                            else{
+                                                                if (c1 === "") {
+                                                                    list[7].innerHTML = "O";
+                                                                    let check2 = list[7].getAttribute('id');
+                                                                    used.push(check2);
+                                                                    array[6] = "O";
+                                                                    setTimeout(() => {
+                                                                        list[7].style.color = "#4C4C4C"
+                                                                    },delay);
+
+                                                                }
+                                                                else{
+                                                                    if (a2 === "") {
+                                                                        list[2].innerHTML = "O";
+                                                                        let check2 = list[2].getAttribute('id');
+                                                                        used.push(check2);
+                                                                        array[1] = "O";
+                                                                        setTimeout(() => {
+                                                                            list[2].style.color = "#4C4C4C"
+                                                                        },delay);
+
+                                                                    }
+                                                                    else{
+                                                                        if (b3 === "") {
+                                                                            list[6].innerHTML = "O";
+                                                                            let check2 = list[6].getAttribute('id');
+                                                                            used.push(check2);
+                                                                            array[5] = "O";
+                                                                            setTimeout(() => {
+                                                                                list[6].style.color = "#4C4C4C"
+                                                                            },delay);
+
+                                                                        }
+                                                                        else{
+                                                                            if (a3 === "") {
+                                                                                list[3].innerHTML = "O";
+                                                                                let check2 = list[3].getAttribute('id');
+                                                                                used.push(check2);
+                                                                                array[2] = "O";
+                                                                                setTimeout(() => {
+                                                                                    list[3].style.color = "#4C4C4C"
+                                                                                },delay);
+
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -270,7 +361,6 @@
             }
         }
     }
-    
     function boardCheck() {
         a1 = $('#piece1').html();
         a2 = $('#piece2').html();
@@ -282,7 +372,18 @@
         c2 = $('#piece8').html();
         c3 = $('#piece9').html();
     }
-
+    reset.onclick = () => {
+        list.map((e,n) =>{
+            n === 0 ? null : e.style.color = "#FFFFFF";
+            e.innerHTML = "";
+        });
+        boardCheck();
+        turn = "X";
+        array = ["","","","","","","","",""];
+        used = [];
+        gameover = false;
+        turn2 === "X" ? computerStarts() : humanStarts();
+    }
 
 
 </script>
